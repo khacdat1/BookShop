@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #f0f0f0;
+  }
+  .wrapper-content {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .book-list .swiper,
+  .category-list .swiper,
+  .list-comment .swiper {
+    height: 100%;
+  }
+  .button-next,
+  .button-prev {
+    position: relative;
+    z-index: 20;
+  }
+  .book-list .swiper .swiper-pagination {
+    transform: translateY(12px);
+    z-index: 20;
+  }
+}

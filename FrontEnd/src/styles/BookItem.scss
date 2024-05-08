@@ -1,0 +1,14 @@
+.book-item {
+  overflow: hidden;
+}
+
+.book-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.book-item img:hover {
+  transform: scale(1.2);
+}
