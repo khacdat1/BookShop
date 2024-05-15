@@ -156,7 +156,7 @@ paths:
                 username:
                   type: string
                   description: Username
-                  example: nthdv
+                  example: BookShop
                 phoneNumber:
                   type: number
                   description: User phone number

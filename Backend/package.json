@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "backend pbl6",
+  "description": "backend",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./app.js",
@@ -11,7 +11,7 @@
   "keywords": [
     "pbl6"
   ],
-  "author": "Nguyen, Tu, Huy, Dat, Vy",
+  "author": "Dat",
   "license": "ISC",
   "dependencies": {
     "babel-preset-env": "^1.7.0",

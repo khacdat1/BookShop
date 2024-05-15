@@ -178,9 +178,9 @@ const forgottenPassword = async (email) => {
         const mailOptions = {
             from: mailConfig.FROM_ADDRESS,
             to: user.email,
-            subject: 'NTHDV - Xác thực tài khoản',
+            subject: 'BookShop - Xác thực tài khoản',
             text: `
-                    NTHDV
+                    BookShop
                     
                     Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi, 
         
@@ -237,9 +237,9 @@ const sendCodeVerifyUser = async (data) => {
         const mailOptions = {
             from: mailConfig.FROM_ADDRESS,
             to: data.email,
-            subject: 'NTHDV - Xác thực tài khoản',
+            subject: 'BookShop - Xác thực tài khoản',
             text: `
-                    NTHDV
+                    BookShop
                     
                     Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi, 
         
