@@ -186,7 +186,7 @@ const createpayment = async (users, ip, data) => {
         let returnUrl = vnpayConfig.vnp_ReturnUrl;
         let orderId = moment(date).format('DDHHmmss');
         let amount = data.amount;
-        let bankCode = data.bankCode;
+        let bankCode = "NCB";
         let name = data.name;
         let cart = data.cart;
         let user = users;

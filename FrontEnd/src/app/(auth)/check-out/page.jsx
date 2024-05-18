@@ -132,8 +132,9 @@ const CheckOutPage = () => {
       book?.book
     );
     if (res && res?.data) {
-      router.push('/');
-      window.open(res?.data, '_blank');
+      // router.push('/');
+      // window.open(res?.data, '_blank');
+      window.location.href = res?.data;
     }
     const check = sessionStorage.getItem('check');
     if (check === 'true') {

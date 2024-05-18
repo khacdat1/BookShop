@@ -18,7 +18,7 @@ const CustomerHistoryPage = () => {
     fecthDataHistoryCustomer();
   }, []);
   return (
-    <div className="w-[800px]">
+    <div className="">
       <h1 className="font-semibold text-3xl mb-3">{t('PurchaseHistory')}</h1>
       <div>
         <TableAntHistory
