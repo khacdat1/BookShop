@@ -61,7 +61,6 @@ const paymenHistorySucceed = async () => {
     try {
         let data = await db.Payment.find({});
         const newData = data.filter((p) => p.status === 3);
-        console.log(newData)
         result.data = newData
         result.status = 200;
         result.message = "Succeed";

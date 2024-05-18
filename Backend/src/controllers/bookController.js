@@ -85,7 +85,6 @@ async function updateBook(req, res) {
 async function insertBook(req, res) {
   try {
     const book = await bookService.insertBook(req.body);
-    console.log(book);
     res.status(200).json({
       message: "insert succeed",
       data: book,
@@ -151,12 +150,12 @@ async function handleSearchPageBook(req, res) {
   }
 }
 async function handleUploadCloud(req, res) {
-  try {
-    const fileData = req.file;
-    console.log(fileData)
-  } catch (e) {
-    console.log(e)
-  }
+  // try {
+  //   const fileData = req.file;
+  //   console.log(fileData)
+  // } catch (e) {
+  //   console.log(e)
+  // }
 }
 module.exports = {
   getAllBooks: getAllBooks,

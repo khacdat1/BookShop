@@ -4,8 +4,7 @@ const db = require("../models/index.js");
 const insertBook = async (data) => {
   let bookData = {};
   try {
-    const book = await db.Book.create(data);
-    bookData.book = book;
+    await db.Book.create(data);
     bookData.errCode = 0;
     bookData.errMessage = "Create book succeed";
   } catch (e) {
@@ -127,7 +126,6 @@ const searchBook = async (query) => {
         { booktitle: { $regex: query, $options: "i" } }, // Tìm kiếm theo tiêu đề (không phân biệt chữ hoa/chữ thường)
       ],
     });
-    console.log(result);
     bookData.data = result;
     bookData.status = 200;
     bookData.message = "Succeed";

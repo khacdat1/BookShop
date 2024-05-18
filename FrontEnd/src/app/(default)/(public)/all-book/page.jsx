@@ -37,7 +37,6 @@ const AllBookPage = () => {
         title: term,
       });
       let pageCount = Math.floor(listBook.length / 15);
-      console.log(pageCount);
 
       setListBook(res?.result?.books);
       if (pageCount === 0) {
@@ -49,7 +48,6 @@ const AllBookPage = () => {
     } else {
       setIsLoading(true);
       const res = await getAllBookWithPagination(page, LIMIT_BOOK_PER_PAGE);
-      console.log(res);
       if (res?.data) {
         setListBook(res?.data?.books);
         setPageCount(res?.data?.totalPages);

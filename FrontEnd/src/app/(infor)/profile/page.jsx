@@ -47,7 +47,6 @@ const ProfilePage = () => {
       values.phoneNumber,
       avatar
     );
-    console.log(res);
     if (res.status === 200) {
       toast.success(res.message);
       sessionStorage.setItem('auth', JSON.stringify(res));
@@ -57,7 +56,7 @@ const ProfilePage = () => {
   const uploadProfileImg = async (formData) => {
     try {
       const res = await axios.post(
-        'https://api.cloudinary.com/v1_1/dsrvia1wu/image/upload',
+        'https://api.cloudinary.com/v1_1/du8zbd7pl/image/upload',
         formData
       );
       const { url, asset_id, etag } = res.data;
@@ -155,9 +154,8 @@ const ProfilePage = () => {
                 <img
                   src={selectedImage}
                   alt=""
-                  className={`object-cover w-full h-full border-0 rounded-full ${
-                    loadingImage ? 'opacity-50' : 'opacity-100'
-                  }`}
+                  className={`object-cover w-full h-full border-0 rounded-full ${loadingImage ? 'opacity-50' : 'opacity-100'
+                    }`}
                 />
               )}
             </label>

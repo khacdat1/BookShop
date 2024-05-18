@@ -9,13 +9,11 @@ const insertOrder = async (data) => {
       isPayment: false,
     });
     if (!order) {
-      console.log(1);
       const order = await db.Order.create(data);
       orderData.order = order;
       orderData.errCode = 200;
       orderData.errMessage = "Create order succeed";
     } else {
-      console.log(2);
       const countUpdate = parseInt(order?.Count) + parseInt(data?.Count);
       const result = await order.updateOne({
         Count: countUpdate,
@@ -90,7 +88,6 @@ const updatePaymentOrder = async (data) => {
       const result = await order.updateOne({
         isPayment: true,
       });
-      console.log(result);
     }
     orderData.errCode = 200;
     orderData.errMessage = "Create order success";
