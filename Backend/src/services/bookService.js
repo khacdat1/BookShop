@@ -4,7 +4,8 @@ const db = require("../models/index.js");
 const insertBook = async (data) => {
   let bookData = {};
   try {
-    await db.Book.create(data);
+    const book = await db.Book.create(data);
+    bookData.book = book;
     bookData.errCode = 0;
     bookData.errMessage = "Create book succeed";
   } catch (e) {

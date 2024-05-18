@@ -85,6 +85,7 @@ async function updateBook(req, res) {
 async function insertBook(req, res) {
   try {
     const book = await bookService.insertBook(req.body);
+    console.log(book);
     res.status(200).json({
       message: "insert succeed",
       data: book,

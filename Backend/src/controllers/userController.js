@@ -79,7 +79,6 @@ const handleGetUserById = async (req, res) => {
     let idUser = req.params.id;
     let user = req.User;
     let data = await userService.getUserById(user, idUser);
-    console.log(data)
     if (data.status === 200) {
         return res.status(200).json({
             user: data.user,
@@ -116,7 +115,6 @@ const handleForgottenPassword = async (req, res) => {
 }
 const handleSendCodeVerify = async (req, res) => {
     const user = req.User.User;
-    console.log(user);
     if (!user) {
         return res.status(500).json({
             status: 500,

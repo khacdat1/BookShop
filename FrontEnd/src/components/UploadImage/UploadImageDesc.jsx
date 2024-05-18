@@ -56,7 +56,6 @@ const UploadImageDesc = () => {
         'https://api.cloudinary.com/v1_1/du8zbd7pl/image/upload',
         formData
       );
-      console.log(res.data);
       const { url, asset_id, etag } = res.data;
       return { url, asset_id, etag };
     } catch (err) {
@@ -72,6 +71,7 @@ const UploadImageDesc = () => {
         const formData = new FormData();
         formData.append('file', e.file);
         formData.append('upload_preset', 'DATN');
+        formData.append('folder', 'DATN');
         const image = await uploadProfileImg(formData);
 
         /* etag : check image upload trùng nếu cần */
