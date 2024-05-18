@@ -83,7 +83,7 @@ const UploadImage = () => {
 
         const formData = new FormData();
         formData.append('file', e.file);
-        formData.append('upload_preset', 'DATN');
+        formData.append('upload_preset', 'nguyenGMO');
         const image = await uploadProfileImg(formData);
 
         /* etag : check image upload trùng nếu cần */
@@ -114,7 +114,7 @@ const UploadImage = () => {
   return (
     <>
       <Upload
-        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+        action="https://run.mocky.io/v3/a89508fd-0631-441a-a11b-3bd0dbf847e2"
         listType="picture-card"
         fileList={fileList}
         maxCount={1}
