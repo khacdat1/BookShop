@@ -149,6 +149,14 @@ async function handleSearchPageBook(req, res) {
     });
   }
 }
+async function handleUploadCloud(req, res) {
+  try {
+    const fileData = req.file;
+    console.log(fileData)
+  } catch (e) {
+    console.log(e)
+  }
+}
 module.exports = {
   getAllBooks: getAllBooks,
   getBookById: getBookById,
@@ -158,5 +166,6 @@ module.exports = {
   updateBook: updateBook,
   insertBook: insertBook,
   handleSearchBook: handleSearchBook,
-  handleSearchPageBook: handleSearchPageBook
+  handleSearchPageBook: handleSearchPageBook,
+  handleUploadCloud: handleUploadCloud
 };
