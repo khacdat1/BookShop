@@ -83,7 +83,7 @@ const UploadImage = () => {
 
         const formData = new FormData();
         formData.append('file', e.file);
-        formData.append('upload_preset', 'DATN');
+        formData.append('upload_preset', 'DoAnTotNghiep');
         console.log(formData);
         const image = await uploadProfileImg(formData);
         

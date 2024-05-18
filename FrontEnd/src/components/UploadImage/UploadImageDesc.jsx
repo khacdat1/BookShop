@@ -70,7 +70,7 @@ const UploadImageDesc = () => {
 
         const formData = new FormData();
         formData.append('file', e.file);
-        formData.append('upload_preset', 'DATN');
+        formData.append('upload_preset', 'DoAnTotNghiep');
         const image = await uploadProfileImg(formData);
 
         /* etag : check image upload trùng nếu cần */
