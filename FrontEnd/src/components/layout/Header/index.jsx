@@ -56,6 +56,16 @@ export default function Header() {
         >
           {t('Books')}
         </Link>
+        <Link
+          href={routes.RECOMMEND}
+          className={
+            pathname === routes.RECOMMEND
+              ? 'text-[#b08fff] font-semibold text-sm'
+              : 'text-sm font-semibold'
+          }
+        >
+          {t('Recommend')}
+        </Link>
       </div>
       <div className="flex ml-auto gap-x-3">
         {auth ? (

@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
         const formData = new FormData();
         formData.append('file', fileInput);
-        formData.append('upload_preset', 'StoreApp_TN');
+        formData.append('upload_preset', 'DATN');
 
         const image = await uploadProfileImg(formData);
         if (image?.url) {
