@@ -11,11 +11,11 @@
     margin: 0 auto;
     padding: 0 20px;
   }
-  .wrapper {
+  /* .wrapper {
     max-width: 1000px;
     margin: 0 auto;
     padding:0 20px;
-  }
+  } */
   .book-list .swiper,
   .category-list .swiper,
   .list-comment .swiper {

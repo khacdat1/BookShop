@@ -129,8 +129,10 @@ const CheckOutPage = () => {
       location,
       '',
       'vn',
-      book?.book
+      book?.book,
+      name,
     );
+    console.log(res);
     if (res && res?.data) {
       // router.push('/');
       // window.open(res?.data, '_blank');

@@ -8,7 +8,7 @@ import ModalOrder from '../ModalOrder';
 
 const TableAntHistory = ({
   listHistory,
-  fecthDataHistoryCustomer = () => {},
+  fecthDataHistoryCustomer = () => { },
 }) => {
   const { t } = useTranslation('info');
   const [data, setData] = useState([]);
@@ -58,11 +58,12 @@ const TableAntHistory = ({
       dataIndex: 'payment_method',
       width: 190,
       render: (_, record) => {
+        console.log("record", record);
         let state;
         let css;
         if (record.payment_method === 'OFF') {
           state = 'Thanh toán khi nhận hàng';
-        } else if (record.payment_method === 'ON') {
+        } else if (record.payment_method === 'ONL') {
           state = 'Thanh toán online';
         }
         return (
@@ -78,7 +79,7 @@ const TableAntHistory = ({
         let state;
         let css;
         if (record.status === 1) {
-          state = 'Đơn hàng chờ xác';
+          state = 'Đơn hàng chờ xác nhận';
         } else if (record.status === 2) {
           state = 'Đơn hàng đang được giao';
         } else if (record.status === 3) {

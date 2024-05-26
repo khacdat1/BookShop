@@ -8,7 +8,9 @@ import { successPayment } from '@/services/paymentService';
 import { useTranslation } from 'react-i18next';
 export default function page() {
   const { t } = useTranslation('checkout');
+
   const [check, setCheck] = useState(true);
+  const router = useRouter()
   const searchParams = useSearchParams();
   const transactionStatus = searchParams.get('vnp_TransactionStatus');
   const code = searchParams.get('vnp_TmnCode');
@@ -21,7 +23,8 @@ export default function page() {
   const decodedQueryString = decodeURIComponent(queryString);
 
   const handleOpen = () => {
-    navigator("/")
+    // navigator("/")
+    router.push('/')
   };
 
   useEffect(() => {
