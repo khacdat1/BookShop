@@ -71,7 +71,7 @@ export default function page() {
           </p>
           <div className="mt-4 flex justify-center p-t[10px]">
             <button
-              onClick={() => handleClose()}
+              onClick={() => handleOpen()}
               className="w-40 h-10 mt-[10px] rounded-full bg-green-500 text-white hover:bg-green-500/80"
             >
               {t('Continueshopping')}
