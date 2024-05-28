@@ -4,7 +4,7 @@ const nextConfig = {
     caseSensitive: false,
   },
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com', 'salt.tikicdn.com'],
   },
 };
 

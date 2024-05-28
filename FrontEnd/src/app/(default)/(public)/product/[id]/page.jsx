@@ -45,8 +45,6 @@ const ProductDetail = () => {
   const [auth, setAuth] = useState(null);
   const cmtRef = useRef();
   const { id } = useParams();
-  const parsedDate = new Date(book !== undefined && book?.datePicker);
-  const formattedDate = format(parsedDate, 'dd/MM/yyyy');
   const [orderItem, setOrderItem] = useState([]);
   const [listBookCategory, setListBookCategory] = useState([]);
   const maxItem = 5;
@@ -421,10 +419,6 @@ const ProductDetail = () => {
                   </div>
                   {/* Information book */}
                   <div className="orther-information pb-[10px]">
-                    <div className="release-date">
-                      <span className="orther-title">{t('RealeaseDate')}</span>
-                      <span className="info">{formattedDate}</span>
-                    </div>
                     <div className="publisher">
                       <span className="orther-title">{t('Publisher')}</span>
                       <span className="info">{book?.publisher}</span>
@@ -561,7 +555,7 @@ const ProductDetail = () => {
 
           {/* <!-- Start Description area --> */}
           <div className="description-wrapper">
-            <div className="description-title directory-name">
+            {/* <div className="description-title directory-name">
               <h1>{t('Description')}</h1>
               <div className="mt-5">
                 <Swiper
@@ -586,7 +580,7 @@ const ProductDetail = () => {
                     ))}
                 </Swiper>
               </div>
-            </div>
+            </div> */}
             <div className="description-detail mt-[20px]">
               <h2>{t('Information')}</h2>
               <div className="story-summary">
@@ -594,7 +588,7 @@ const ProductDetail = () => {
 
                 <div className="flex items-center justify-center">
                   <Image
-                    src={book?.descImage[3]?.url}
+                    src={book?.mainImage[0]?.url}
                     width={500}
                     alt="image"
                     height={500}
@@ -621,14 +615,6 @@ const ProductDetail = () => {
                   <span className="overview-label">{t('Overview')}</span>
                 </header>
                 <div className="overview-content">
-                  <div className="overview-releaseDate specification-form">
-                    <span className="releaseDate-label">
-                      {t('RealeaseDate')}
-                    </span>
-                    <span className="releaseDate-value value">
-                      {formattedDate}
-                    </span>
-                  </div>
                   <div className="overview-publisher specification-form">
                     <span className="publisher-label">{t('Publisher')}</span>
                     <span className="publisher-value value">
@@ -669,45 +655,45 @@ const ProductDetail = () => {
                 <h1>{t('DiscountedStory')}</h1>
               </div>
               <div className="discounted-content">
-                {bookDiscount?.length > 0 &&
-                  bookDiscount.map((item) => (
-                    <div className="discounted-items" key={item._id}>
-                      <div className="item-view">
-                        <Image
-                          src={item.mainImage[0].url}
-                          width={500}
-                          height={500}
-                          alt="discount image"
-                          className="item-img"
-                        />
+                {bookDiscount?.length > 0 && bookDiscount.slice(0, 10).map((item) => (
+                  <div className="discounted-items" key={item._id}>
+                    <div className="item-view">
+                      <Image
+                        src={item.mainImage[0].url}
+                        width={500}
+                        height={500}
+                        alt="discount image"
+                        className="item-img"
+                        maxItem={5}
+                      />
+                    </div>
+                    <div className="item-content">
+                      <div className="item-name">
+                        <Link
+                          href={`/product/${item._id}`}
+                          onClick={() => setRouteLoading(true)}
+                        >
+                          <span>{item.booktitle}</span>
+                        </Link>
                       </div>
-                      <div className="item-content">
-                        <div className="item-name">
-                          <Link
-                            href={`/product/${item._id}`}
-                            onClick={() => setRouteLoading(true)}
-                          >
-                            <span>{item.booktitle}</span>
-                          </Link>
-                        </div>
-                        <div className="item-review">
-                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                        </div>
-                        <div className="item-price">
-                          <span>
-                            {item?.price?.toLocaleString('it-IT', {
-                              style: 'currency',
-                              currency: 'VND',
-                            })}
-                          </span>
-                        </div>
+                      <div className="item-review">
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                      </div>
+                      <div className="item-price">
+                        <span>
+                          {item?.price?.toLocaleString('it-IT', {
+                            style: 'currency',
+                            currency: 'VND',
+                          })}
+                        </span>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </div>
             {/* <!-- End discounted area --> */}
@@ -897,9 +883,8 @@ const ProductDetail = () => {
                           </div>
                           <div className="comment-date">
                             <span>
-                              {`${new Date(cmt?.createdAt).getDate()}-${
-                                new Date(cmt?.createdAt).getMonth() + 1
-                              }-${new Date(cmt?.createdAt).getFullYear()}`}
+                              {`${new Date(cmt?.createdAt).getDate()}-${new Date(cmt?.createdAt).getMonth() + 1
+                                }-${new Date(cmt?.createdAt).getFullYear()}`}
                             </span>
                           </div>
                         </div>

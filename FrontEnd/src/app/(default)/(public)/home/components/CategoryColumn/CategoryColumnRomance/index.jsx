@@ -9,7 +9,7 @@ const CategoryColumnRomance = () => {
   const { t } = useTranslation();
   const [listBookRomance, setListBookRomance] = useState([]);
   const fetchBookByRomance = async () => {
-    const res = await getBookByCategory('Romance');
+    const res = await getBookByCategory('Others');
     if (res && res?.data?.errCode === 0) {
       setListBookRomance(res?.data?.book);
     }
@@ -19,7 +19,7 @@ const CategoryColumnRomance = () => {
   }, []);
   return (
     <>
-      <h1 className="mb-3 font-semibold">{t('Romance')}</h1>
+      <h1 className="mb-3 font-semibold">{"Others"}</h1>
       <div className="flex w-full gap-x-3">
         <div className="flex flex-col w-full bg-white rounded-lg">
           {listBookRomance?.length > 0 &&

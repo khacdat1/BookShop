@@ -16,7 +16,6 @@ import {
   saveFirstForm,
   saveMainImage,
 } from '@/redux/reducers/formAddReducer';
-import DatePickerInput from '@/components/DatePickerInput';
 import { useEffect, useState } from 'react';
 import { message } from 'antd';
 import UploadImage from '@/components/UploadImage';
@@ -29,15 +28,7 @@ const schema = yup
     price: yup.string().required('Please enter price'),
     quantity: yup.string().required('Please enter quantity'),
     desc: yup.string().required('Please enter description'),
-    author: yup.string().required("Please enter the author's name"),
-    datePicker: yup
-      .date()
-      .required()
-      .test('is-less-than-current', 'Invalid date', function (value) {
-        const currentDate = new Date();
-        return value < currentDate;
-      })
-      .typeError('Please enter the correct format'),
+    author: yup.string().required("Please enter the author's name")
   })
   .required();
 
@@ -64,9 +55,7 @@ export default function FirstForm() {
       const newValues = { ...values };
 
       const stringFromDate = (date) => format(date, 'yyyy-MM-dd');
-      const dateToSerialize = stringFromDate(new Date(newValues.datePicker));
       const price = getValues('price');
-      newValues.datePicker = dateToSerialize;
       newValues.mainImage = dataMainImage;
       newValues.price = price;
       if (newValues.category.value) {
@@ -98,9 +87,6 @@ export default function FirstForm() {
   /* set value */
   useEffect(() => {
     if (!isObjectEmpty(dataFirstForm)) {
-      const originalDate = new Date(dataFirstForm.datePicker);
-      const formattedDate = originalDate.toISOString().split('T')[0];
-      setValue('datePicker', formattedDate);
 
       setValue('author', dataFirstForm.author);
       setValue('booktitle', dataFirstForm.booktitle);
@@ -213,21 +199,6 @@ export default function FirstForm() {
             </Field>
           </div>
           {/* date * */}
-          <div className="w-full">
-            <Field>
-              <div className="mb-2">
-                <Label htmlFor="datePicker">Release date</Label>
-              </div>
-              <DatePickerInput
-                control={control}
-                name="datePicker"
-                id="datePicker"
-              ></DatePickerInput>
-              <p className="font-semibold text-xs text-red-700 h-[20px] py-1">
-                {errors.datePicker && errors.datePicker.message}
-              </p>
-            </Field>
-          </div>
         </div>
 
         <div className="flex flex-col justify-between md:flex-row ">

@@ -9,7 +9,7 @@ const CategoryComedy = () => {
   const { t } = useTranslation();
   const [listBookComedy, setBookListComedy] = useState([]);
   const fetchBookByComedy = async () => {
-    const res = await getBookByCategory('Comedy');
+    const res = await getBookByCategory('Truyện trinh thám');
     if (res && res?.data?.errCode === 0) {
       setBookListComedy(res?.data?.book);
     }
@@ -19,7 +19,7 @@ const CategoryComedy = () => {
   }, []);
   return (
     <>
-      <h1 className="mb-3 font-semibold">{t('Comedy')}</h1>
+      <h1 className="mb-3 font-semibold">{"Truyện trinh thám"}</h1>
       <div className="flex w-full gap-x-3">
         <div className="flex flex-col w-full bg-white rounded-lg">
           {listBookComedy?.length > 0 &&

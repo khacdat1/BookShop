@@ -7,15 +7,15 @@ const BannerItem = ({ book }) => {
   return (
     <div className="w-full h-[600px] relative">
       <div className="absolute inset-0 bg-black rounded-md bg-opacity-40"></div>
-      {book?.descImage?.length > 0 &&
-        book?.descImage
+      {book?.mainImage?.length > 0 &&
+        book?.mainImage
           ?.slice(0, 1)
           .map((b, index) => (
             <img
               key={index}
               src={b?.url}
               alt=""
-              className="object-cover w-full h-full"
+              className="ml-auto object-cover w-50 h-full"
             />
           ))}
       <div className="absolute bottom-16 left-10 text-white w-[600px] flex flex-col gap-y-3">
@@ -23,7 +23,7 @@ const BannerItem = ({ book }) => {
           {t('Booktitle')}: {book?.booktitle}
         </h2>
         <span className="inline-block text-lg">
-          {'Category'}: {book?.category}
+          {t('Category')}: {book?.category}
         </span>
         <p className="mb-2 text-base font-light leading-6">
           {t('Description')}: {book?.desc}

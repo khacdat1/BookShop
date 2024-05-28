@@ -7,8 +7,8 @@ const BookItem = ({ data }) => {
     <>
       <div className="rounded-lg book-item">
         <Link href={`/product/${data._id}`}>
-          {data?.descImage?.length > 0 &&
-            data?.descImage
+          {data?.mainImage?.length > 0 &&
+            data?.mainImage
               ?.slice(0, 1)
               ?.map((img, index) => (
                 <img

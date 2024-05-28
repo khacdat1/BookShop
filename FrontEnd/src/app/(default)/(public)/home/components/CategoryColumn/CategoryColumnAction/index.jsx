@@ -9,7 +9,7 @@ const CategoryColumnAction = () => {
   const { t } = useTranslation();
   const [listBookAction, setListBookAction] = useState([]);
   const fetchBookByAction = async () => {
-    const res = await getBookByCategory('Action');
+    const res = await getBookByCategory('Tiểu Thuyết');
     if (res && res?.data?.errCode === 0) {
       setListBookAction(res?.data?.book);
     }
@@ -19,7 +19,7 @@ const CategoryColumnAction = () => {
   }, []);
   return (
     <>
-      <h1 className="mb-3 font-semibold">{t('Actions')}</h1>
+      <h1 className="mb-3 font-semibold">{"Tiểu thuyết"}</h1>
       <div className="flex w-full gap-x-3">
         <div className="flex flex-col w-full bg-white rounded-lg">
           {listBookAction?.length > 0 &&

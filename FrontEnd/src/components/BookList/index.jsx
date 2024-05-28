@@ -24,7 +24,7 @@ const BookList = () => {
     fetchAllBook();
   }, []);
   return (
-    <div className="mt-5 book-list h-[250px]">
+    <div className="mt-5 book-list h-[250px]" >
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={20}
@@ -35,6 +35,7 @@ const BookList = () => {
       >
         {listBook?.length > 0 &&
           listBook?.slice(0, 11)?.map((book, index) => (
+            console.log(book),
             <SwiperSlide key={index}>
               <BookItem data={book} />
             </SwiperSlide>
@@ -48,7 +49,7 @@ const BookList = () => {
           {t('DisscoverAll')}
         </Link>
       </span>
-    </div>
+    </div >
   );
 };
 
