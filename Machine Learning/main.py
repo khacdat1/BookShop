@@ -2,8 +2,8 @@ import pandas as pd
 from cf_recommender import CF
 
 # Đọc dữ liệu từ file CSV
-ratings_base = pd.read_csv('comments.csv')
-ratings_base = ratings_base[['customer_id', 'product_id', 'rating']]
+ratings_base = pd.read_csv('ratings.csv')
+ratings_base = ratings_base[['book_id', 'user_id', 'rating']]
 rate_train = ratings_base.values
 
 # Khởi tạo mô hình CF
