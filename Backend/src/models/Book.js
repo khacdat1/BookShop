@@ -17,7 +17,7 @@ const BookModal = new Schema({
   language: { type: Array },
   status: { type: Number, default: 0 },
   discount: { type: Number, default: 0 },
-  comment: [{ type: Number, ref: 'Comment' }],
+  comment: [{ type:  mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 }, { timestamps: true, });
 
 module.exports = mongoose.model("Book", BookModal);

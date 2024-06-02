@@ -77,7 +77,7 @@ const create = async (req, res) => {
         const newComment = new BookComment({
             comment: req.body.comment,
             id_book: id_book,
-            id_user: req.User.User._id
+            id_user: req.User.User._id,
         });
         const commentData = await newComment.save();
 
