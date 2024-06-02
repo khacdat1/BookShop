@@ -18,12 +18,6 @@ const RecommendPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [listBook, setListBook] = useState([]);
     const [listIdBook, setListIdBook] = useState([]);
-    const [pageCount, setPageCount] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    const handlePageClick = (event) => {
-        getBookRecommendById(Number(event.selected + 1));
-        setCurrentPage(Number(event.selected + 1));
-    };
     useEffect(() => {
         const getBookRecommendById = async (id) => {
             setIsLoading(true);
@@ -55,8 +49,7 @@ const RecommendPage = () => {
         const handleGetBook = async () => {
             Promise.all(listIdBook.map(async (id) => {
                 const book = await getBookRecommendById(id);
-                // console.log('book', book);
-                setListBook(book);
+                setListBook((prev) => [...prev, book.data.book]);
             }));
         }
         handleGetBook();
@@ -76,21 +69,6 @@ const RecommendPage = () => {
                         ))}
                 </div>
             )}
-            <div className="mx-auto mt-5 w-max">
-                {!isLoading && (
-                    <ReactPaginate
-                        breakLabel="..."
-                        nextLabel=">"
-                        onPageChange={handlePageClick}
-                        pageRangeDisplayed={5}
-                        pageCount={pageCount}
-                        previousLabel="<"
-                        renderOnZeroPageCount={null}
-                        className="pagination"
-                        forcePage={currentPage - 1}
-                    />
-                )}
-            </div>
         </div>
     );
 };
