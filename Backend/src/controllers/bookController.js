@@ -16,6 +16,20 @@ async function getAllBooks(req, res) {
     });
   }
 }
+async function getBookRecommendById(req, res) {
+  try {
+    let body = req.params;
+    const book = await bookService.getBookRecommendById(body);
+    res.status(200).json({
+      message: "get all succeed",
+      data: book,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "failed",
+    });
+  }
+}
 async function getAllBooksByDiscount(req, res) {
   try {
     // let body = req.query;
@@ -167,5 +181,6 @@ module.exports = {
   insertBook: insertBook,
   handleSearchBook: handleSearchBook,
   handleSearchPageBook: handleSearchPageBook,
-  handleUploadCloud: handleUploadCloud
+  handleUploadCloud: handleUploadCloud,
+  getBookRecommendById: getBookRecommendById
 };

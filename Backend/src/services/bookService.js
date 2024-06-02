@@ -180,6 +180,19 @@ const searchPageBook = async (query) => {
   }
   return bookData;
 };
+const getBookRecommendById = async (data) => {
+  let bookData = {};
+  try {
+    const book = await db.Book.findOne({ product_id: +data.id });
+    bookData.book = book;
+    bookData.errCode = 0;
+    bookData.errMessage = "Get all book succeed";
+  } catch (e) {
+    bookData.errCode = 2;
+    bookData.errMessage = "Get all book failed";
+  }
+  return bookData;
+}
 module.exports = {
   insertBook: insertBook,
   updateBook: updateBook,
@@ -190,4 +203,5 @@ module.exports = {
   getAllBooksByDiscount: getAllBooksByDiscount,
   searchBook: searchBook,
   searchPageBook: searchPageBook,
+  getBookRecommendById: getBookRecommendById,
 };

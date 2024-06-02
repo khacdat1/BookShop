@@ -13,6 +13,7 @@ router.post("/insert", bookController.insertBook);
 router.put("/", bookController.updateBook);
 router.post("/search", bookController.handleSearchBook);
 router.post("/search-page", bookController.handleSearchPageBook);
+router.get("/recommend/:id", bookController.getBookRecommendById);
 
 router.post("/uploader", uploader.single('image'), bookController.handleUploadCloud)
 module.exports = router;
