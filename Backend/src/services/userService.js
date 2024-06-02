@@ -5,6 +5,7 @@ const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken");
 const mailConfig = require('../config/mail')
 const nodemailer = require('nodemailer');
+const Counter = require("../models/Counter");
 require('dotenv/config')
 const GeneralAccessToken = (data) => {
     const access_token = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
@@ -56,8 +57,17 @@ const handleLogin = async (data) => {
     }
     return userData;
 }
+async function getNextSequence(name) {
+    const counter = await Counter.findOneAndUpdate(
+        { _id: name },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+    );
+    return counter.seq;
+}
 const handleRegister = async (data) => {
     let userData = {};
+    const userId = await getNextSequence('userId');
     try {
         const user = await db.User.findOne({ email: data.email }).exec();
         if (user) {
@@ -67,6 +77,7 @@ const handleRegister = async (data) => {
         }
         let hashPassword = await bcrypt.hashSync(data.password, salt);
         await db.User.create({
+            id: userId,
             username: data.username,
             email: data.email,
             password: hashPassword,

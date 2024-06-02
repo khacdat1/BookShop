@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose;
-const { ObjectId } = require('mongodb');
 
 const User = new Schema({
-    id: { type: ObjectId },
+    id: { type: Number, uinque: true },
     avatar: { type: String },
     username: {
         type: String,
