@@ -54,9 +54,14 @@ const RecommendPage = () => {
         }
         handleGetBook();
     }, [listIdBook]);
-    console.log("listBook", listBook);
     return (
         <div className="mt-5 wrapper-content">
+            <div class="p-5 bg-gray-100 rounded-lg shadow-md max-w-xl mx-auto">
+                <h2 class="text-xl text-gray-800 font-bold text-center mb-0">
+                    Gợi ý hôm nay!
+                </h2>
+            </div>
+
             {isLoading ? (
                 <div className="mx-auto mt-5 w-max">
                     <LoadingPage></LoadingPage>

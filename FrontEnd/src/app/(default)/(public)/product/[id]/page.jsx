@@ -408,8 +408,8 @@ const ProductDetail = () => {
                     <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
                     <span className="customer-review">
                       (
-                      <a href="#" className="customer-review-link">
-                        2 {t('customerReviews')}
+                      <a href="#customer-reviews" className="customer-review-link">
+                        {book?.comment?.length} {t('customerReviews')}
                       </a>
                       )
                     </span>
@@ -555,7 +555,7 @@ const ProductDetail = () => {
 
           {/* <!-- Start Description area --> */}
           <div className="description-wrapper">
-            {/* <div className="description-title directory-name">
+            <div className="description-title directory-name">
               <h1>{t('Description')}</h1>
               <div className="mt-5">
                 <Swiper
@@ -580,7 +580,7 @@ const ProductDetail = () => {
                     ))}
                 </Swiper>
               </div>
-            </div> */}
+            </div>
             <div className="description-detail mt-[20px]">
               <h2>{t('Information')}</h2>
               <div className="story-summary">
@@ -701,7 +701,7 @@ const ProductDetail = () => {
           {/* <!-- End wrapper area --> */}
           {/* <!-- Customer Reviews --> */}
           {/* <!-- Start Customer Reviews --> */}
-          <div className="customerReviews-wrapper">
+          <div id="customer-reviews" className="customerReviews-wrapper">
             <div className="customerReviews-title directory-name">
               <h1>{t('CustomerReviews')}</h1>
             </div>
@@ -718,7 +718,7 @@ const ProductDetail = () => {
                     <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
                     <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
                   </div>
-                  <div className="ratingHeader-reviews">2 {t('Reviews')}</div>
+                  <div className="ratingHeader-reviews">{book?.comment?.length} {t('Reviews')}</div>
                 </div>
                 <div className="rating-main">
                   <div className="rating-five rating-items">
@@ -733,7 +733,7 @@ const ProductDetail = () => {
                       <div className="proportional-area"></div>
                     </div>
                     <div className="quantity-area">
-                      <span>2</span>
+                      <span>0</span>
                     </div>
                   </div>
                   <div className="rating-four rating-items">
@@ -864,12 +864,12 @@ const ProductDetail = () => {
                       <div className="card-top">
                         <div className="profile">
                           <div className="profile-image">
-                            {/* <Image
+                            <Image
                               src={cmt?.user?.avatar || ''}
                               alt=""
                               width={100}
                               height={100}
-                            /> */}
+                            />
                           </div>
                           <div className="profile-name">
                             <strong>{cmt?.user?.username}</strong>

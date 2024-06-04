@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
         const formData = new FormData();
         formData.append('file', fileInput);
-        formData.append('upload_preset', 'DATN');
+        formData.append('upload_preset', 'DoAnTotNghiep');
 
         const image = await uploadProfileImg(formData);
         if (image?.url) {
@@ -106,7 +106,7 @@ const ProfilePage = () => {
     setAvatar(auth?.user?.avatar);
   }, [auth]);
   // useEffect(() => {
-
+  console.log(avatar);
   // }, []);
   return (
     <div>
