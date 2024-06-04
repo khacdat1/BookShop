@@ -4,9 +4,10 @@ const getAllCommentByBook = (idBook) => {
   return instance.get(`book/${idBook}/comments`);
 };
 
-const postComment = (idBook, comment) => {
+const postComment = (idBook, comment, rating) => {
   return instance.post(`book/${idBook}/comments/create`, {
     comment,
+    rating
   });
 };
 

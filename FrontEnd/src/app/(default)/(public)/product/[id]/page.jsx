@@ -108,7 +108,6 @@ const ProductDetail = () => {
       toast.success('Add book to cart fail');
     }
   };
-
   const fetchAllCommentByBook = async () => {
     const res = await getAllCommentByBook(id);
     if (res && res?.data) {
@@ -121,7 +120,7 @@ const ProductDetail = () => {
       toast.warning('Vui lòng đăng nhập!!!');
       return;
     }
-    const res = await postComment(id, comment);
+    const res = await postComment(id, comment, value);
     if (res && res.data) {
       fetchAllCommentByBook();
       setComment('');
@@ -220,6 +219,7 @@ const ProductDetail = () => {
         }
       };
       handleGetBookByID();
+
     } catch (error) {
       console.log('file: page.jsx:37 ~ useEffect ~ error:', error);
     }
@@ -874,11 +874,31 @@ const ProductDetail = () => {
                           <div className="profile-name">
                             <strong>{cmt?.user?.username}</strong>
                             <div className="likes">
-                              <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                              <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                              <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                              <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                              <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                              {
+                                cmt?.rating === 1 ? <i className="fa fa-solid fa-star fa-2xl icon-star"></i> :
+                                  cmt?.rating === 2 ?
+                                    <>
+                                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                    </> : cmt?.rating === 3 ?
+                                      <>
+                                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                        <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                      </> : cmt?.rating === 4 ?
+                                        <>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                        </> : cmt?.rating === 5 ? <>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                          <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
+                                        </> : ''
+                              }
                             </div>
                           </div>
                           <div className="comment-date">
@@ -936,8 +956,9 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-      )}
-    </section>
+      )
+      }
+    </section >
   );
 };
 
