@@ -30,7 +30,7 @@ const CartItem = ({
   const handleUpdateOrder = async (id, count, status) => {
     try {
       const result = await getOrderById(id);
-      if (result && result.data && result.data.order && result.data.order[0]) {
+      if (result && result.data && result.data.order && result.data.order[0] && result.data.order[0].Book.active === 1) {
         const data = result.data.order[0];
         if (status === undefined) {
           const kq = await updateOrder({

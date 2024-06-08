@@ -21,7 +21,7 @@ const routes = {
   ACCOUNT: '/admin-accounts',
   PRODUCT: '/admin-products',
   ORDER: '/admin-orders',
-
+  DELETEPRODUCT: '/admin-delete-products',
   // BOOK
   ALLBOOK: '/all-book',
   CUSTOMERHISTORY: '/customer-history',

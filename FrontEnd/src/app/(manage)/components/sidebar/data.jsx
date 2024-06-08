@@ -24,6 +24,11 @@ export const data = [
     link: routes.PRODUCT,
   },
   {
+    title: 'Delete Products',
+    icon: <ProductIcon />,
+    link: routes.DELETEPRODUCT,
+  },
+  {
     title: 'Orders',
     icon: <OrderIcon />,
     link: routes.ORDER,

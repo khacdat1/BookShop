@@ -31,8 +31,19 @@ const deleteBook = async (id) => {
     // await db.Book.deleteOne({
     //   _id: id.id,
     // });
-    const books = await db.Book.findOne({ _id: id.id });
-    books.active = 0;
+    const book = await db.Book.findOne({ _id: id.id });
+
+    if (book) {
+      // Cập nhật trường active thành 0
+      book.active = 0;
+
+      // Lưu tài liệu đã được cập nhật trở lại cơ sở dữ liệu
+      await book.save();
+
+      console.log('Cập nhật trạng thái active của sách thành công');
+    } else {
+      console.log('Không tìm thấy sách');
+    }
     bookData.errCode = 0;
     bookData.errMessage = "delete book succeed";
   } catch (e) {
@@ -122,7 +133,7 @@ const getBookById = async (id) => {
 const getBookByCategory = async (category) => {
   let bookData = {};
   try {
-    const book = await db.Book.find({ category: category.value });
+    const book = await db.Book.find({ category: category.value, active: 1 });
     bookData.book = book;
     bookData.errCode = 0;
     bookData.errMessage = "Get book by category succeed";

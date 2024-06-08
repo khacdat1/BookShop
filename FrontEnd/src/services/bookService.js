@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale';
 import instance from '../utils/axiosCustomize';
 
 // const getAllBook = () => {
@@ -6,6 +7,10 @@ import instance from '../utils/axiosCustomize';
 const getAllBook = () => {
   return instance.get('book?limit=1000');
 };
+const getAllbookDeleted = () => {
+  return instance.get('book/deletebook/all');
+
+}
 const getAllBooksByDiscount = () => {
   return instance.get('book/book-by-discount');
 };
@@ -33,6 +38,9 @@ const putBook = (data) => {
 const deleteBook = (id) => {
   return instance.delete(`book/${id}`);
 };
+const restoreBook = (id) => {
+  return instance.post(`book/updatebookdelete/${id}`);
+}
 const searchBook = (data) => {
   return instance.post(`book/search?title=${data.title}`);
 };
@@ -52,5 +60,7 @@ export {
   getAllBooksByDiscount,
   searchBook,
   searchPageBook,
-  getBookRecommendById
+  getBookRecommendById,
+  restoreBook,
+  getAllbookDeleted
 };

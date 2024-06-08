@@ -176,7 +176,7 @@ async function handleUploadCloud(req, res) {
 const getAllbookDeleted = async (req, res) => {
   try {
     const books = await Book.find({ active: 0 });
-    res.json(books);
+    res.status(200).json({ data: books });
   } catch (error) {
     console.error('Error fetching deleted books:', error);
     res.status(500).json({ message: 'Failed to fetch deleted books', error });
@@ -185,7 +185,6 @@ const getAllbookDeleted = async (req, res) => {
 const updateBookDeleted = async (req, res) => {
   try {
     let id = req.params.id;
-    console.log(id)
     let product = omitBy({
       active: 1
     }, (value) => {

@@ -195,9 +195,9 @@ export default function Cart() {
                       <span>
                         {payment.totalMoney
                           ? payment.totalMoney?.toLocaleString('it-IT', {
-                              style: 'currency',
-                              currency: 'VND',
-                            })
+                            style: 'currency',
+                            currency: 'VND',
+                          })
                           : 0}
                       </span>
                     </td>
