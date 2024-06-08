@@ -1,7 +1,8 @@
 const { data } = require("jquery");
 const { bookService } = require("../services");
 const bookController = require("./bookController");
-
+const Book = require("../models/Book.js");
+const { omitBy } = require('lodash');
 async function getAllBooks(req, res) {
   try {
     let body = req.query;
@@ -47,6 +48,7 @@ async function getAllBooksByDiscount(req, res) {
 async function getBookById(req, res) {
   try {
     const book = await bookService.getBookById(req.params);
+    console.log("1")
     res.status(200).json({
       message: "get book by id succeed",
       data: book,
@@ -74,7 +76,7 @@ async function getBookByCategory(req, res) {
   try {
     const book = await bookService.getBookByCategory(req.query);
     res.status(200).json({
-      message: "get book by id succeed",
+      message: "get book category by id succeed",
       data: book,
     });
   } catch (error) {
@@ -171,6 +173,37 @@ async function handleUploadCloud(req, res) {
   //   console.log(e)
   // }
 }
+const getAllbookDeleted = async (req, res) => {
+  try {
+    const books = await Book.find({ active: 0 });
+    res.json(books);
+  } catch (error) {
+    console.error('Error fetching deleted books:', error);
+    res.status(500).json({ message: 'Failed to fetch deleted books', error });
+  }
+};
+const updateBookDeleted = async (req, res) => {
+  try {
+    let id = req.params.id;
+    console.log(id)
+    let product = omitBy({
+      active: 1
+    }, (value) => {
+      return value === undefined;
+    })
+    const books = await Book.findByIdAndUpdate(
+      id,
+      product,
+      { new: true }
+    );
+    if (books) {
+      res.status(200).json({ message: 'Update book deleted successfully', data: books });
+    }
+  } catch (error) {
+    console.error('Error fetching deleted books:', error);
+    res.status(500).json({ message: 'Failed to fetch deleted books', error });
+  }
+};
 module.exports = {
   getAllBooks: getAllBooks,
   getBookById: getBookById,
@@ -182,5 +215,7 @@ module.exports = {
   handleSearchBook: handleSearchBook,
   handleSearchPageBook: handleSearchPageBook,
   handleUploadCloud: handleUploadCloud,
-  getBookRecommendById: getBookRecommendById
+  getBookRecommendById: getBookRecommendById,
+  getAllbookDeleted: getAllbookDeleted,
+  updateBookDeleted: updateBookDeleted,
 };

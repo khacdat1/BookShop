@@ -28,9 +28,11 @@ const insertBook = async (data) => {
 const deleteBook = async (id) => {
   let bookData = {};
   try {
-    await db.Book.deleteOne({
-      _id: id.id,
-    });
+    // await db.Book.deleteOne({
+    //   _id: id.id,
+    // });
+    const books = await db.Book.findOne({ _id: id.id });
+    books.active = 0;
     bookData.errCode = 0;
     bookData.errMessage = "delete book succeed";
   } catch (e) {
@@ -81,7 +83,7 @@ const getAllBooks = async (body) => {
     const totalCount = await Book.countDocuments({});
     const totalPages = Math.ceil(totalCount / parsedLimit);
 
-    const books = await Book.find({}).skip(skip).limit(parsedLimit);
+    const books = await Book.find({ active: 1 }).skip(skip).limit(parsedLimit);
 
     return (bookData = {
       page: parsedPage,

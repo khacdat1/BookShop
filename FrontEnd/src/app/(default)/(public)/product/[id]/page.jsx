@@ -111,6 +111,8 @@ const ProductDetail = () => {
   const fetchAllCommentByBook = async () => {
     const res = await getAllCommentByBook(id);
     if (res && res?.data) {
+      console.log('res?.data?.comments', res?.data?.comments)
+      console.log(listCommentByBook.filter(comment => comment?.rating === 5).length)
       setListCommentByBook(res?.data?.comments);
     }
   };
@@ -124,6 +126,7 @@ const ProductDetail = () => {
     if (res && res.data) {
       fetchAllCommentByBook();
       setComment('');
+      setValue(0);
       cmtRef.current.value = '';
       toast.success(res.message);
     }
@@ -733,7 +736,7 @@ const ProductDetail = () => {
                       <div className="proportional-area"></div>
                     </div>
                     <div className="quantity-area">
-                      <span>0</span>
+                      <span>{listCommentByBook.filter(comment => comment?.rating === 5).length}</span>
                     </div>
                   </div>
                   <div className="rating-four rating-items">
@@ -748,7 +751,7 @@ const ProductDetail = () => {
                       <div className="proportional-area"></div>
                     </div>
                     <div className="quantity-area">
-                      <span>0</span>
+                      <span>{listCommentByBook.filter(comment => comment?.rating === 4).length}</span>
                     </div>
                   </div>
                   <div className="rating-three rating-items">
@@ -763,7 +766,7 @@ const ProductDetail = () => {
                       <div className="proportional-area"></div>
                     </div>
                     <div className="quantity-area">
-                      <span>0</span>
+                      <span>{listCommentByBook.filter(comment => comment?.rating === 3).length}</span>
                     </div>
                   </div>
                   <div className="rating-two rating-items">
@@ -778,7 +781,7 @@ const ProductDetail = () => {
                       <div className="proportional-area"></div>
                     </div>
                     <div className="quantity-area">
-                      <span>0</span>
+                      <span>{listCommentByBook.filter(comment => comment?.rating === 2).length}</span>
                     </div>
                   </div>
                   <div className="rating-one rating-items">
@@ -793,7 +796,7 @@ const ProductDetail = () => {
                       <div className="proportional-area"></div>
                     </div>
                     <div className="quantity-area">
-                      <span>0</span>
+                      <span>{listCommentByBook.filter(comment => comment?.rating === 1).length}</span>
                     </div>
                   </div>
                 </div>

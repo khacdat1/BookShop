@@ -15,5 +15,7 @@ router.post("/search", bookController.handleSearchBook);
 router.post("/search-page", bookController.handleSearchPageBook);
 router.get("/recommend/:id", bookController.getBookRecommendById);
 
-router.post("/uploader", uploader.single('image'), bookController.handleUploadCloud)
+router.post("/uploader", uploader.single('image'), bookController.handleUploadCloud);
+router.get("/deletebook/all", bookController.getAllbookDeleted);
+router.post("/updatebookdelete/:id", bookController.updateBookDeleted);
 module.exports = router;
