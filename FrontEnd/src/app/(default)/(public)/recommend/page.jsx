@@ -49,6 +49,7 @@ const RecommendPage = () => {
         const handleGetBook = async () => {
             Promise.all(listIdBook.map(async (id) => {
                 const book = await getBookRecommendById(id);
+                console.log(book);
                 setListBook((prev) => [...prev, book.data.book]);
             }));
         }

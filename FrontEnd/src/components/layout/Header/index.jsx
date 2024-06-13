@@ -56,7 +56,7 @@ export default function Header() {
         >
           {t('Books')}
         </Link>
-        <Link
+        {/* <Link
           href={auth ? routes.RECOMMEND : '#'}
           className={
             pathname === routes.RECOMMEND
@@ -65,7 +65,7 @@ export default function Header() {
           }
         >
           {auth && t('Recommend')}
-        </Link>
+        </Link> */}
 
       </div>
       <div className="flex ml-auto gap-x-3">

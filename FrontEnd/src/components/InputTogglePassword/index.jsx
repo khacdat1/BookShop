@@ -16,6 +16,7 @@ const InputTogglePassword = ({ name, control, label = 'Password' }) => {
       </div>
       <div className="relative w-full">
         <Input
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
           type={`${isShowPassword ? 'text' : 'password'}`}
           name={name}
           control={control}

@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Raiting from '@/components/Raiting';
@@ -15,11 +16,16 @@ import {
   getAllCommentByBook,
   postComment,
 } from '@/services/commentService';
+import { getAccountById } from '@/services/authService';
+
 import {
   getAllBooksByDiscount,
   getBookByCategory,
   getBookById,
+  getBookRecommend
 } from '@/services/bookService';
+import BookCard from '@/components/BookCard';
+
 import { format } from 'date-fns';
 import { Badge } from 'antd';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -39,6 +45,8 @@ const ProductDetail = () => {
   const [book, setBook] = useState();
   const [bookDiscount, setBookDiscount] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [listBook, setListBook] = useState([]);
+  const [listIdBook, setListIdBook] = useState([]);
   const [count, setCount] = useState(1);
   const [listCommentByBook, setListCommentByBook] = useState([]);
   const [comment, setComment] = useState('');
@@ -66,6 +74,43 @@ const ProductDetail = () => {
     setCount(count + 1);
   }, [count]);
 
+  const getBookRecommendById = async (id) => {
+    setIsLoading(true);
+    try {
+      const result = await axios.get(`http://127.0.0.1:5000/recommend?id=${id}`);
+      setListIdBook(result.data);
+    } catch (error) {
+      console.error('Error fetching book recommendation:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const fetchUserAndRecommend = async () => {
+    const auth = JSON.parse(sessionStorage.getItem('auth'));
+    if (auth && auth.user && auth.user._id) {
+      const user = await getAccountById(auth.user._id);
+      if (user && user.user && user.user.id) {
+        getBookRecommendById(user.user.id);
+      } else {
+        console.error('User ID not found');
+      }
+    } else {
+      console.error('Auth user ID not found');
+    }
+  };
+  const handleGetBook = async () => {
+    Promise.all(listIdBook.map(async (id) => {
+      const book = await getBookRecommend(id);
+      console.log(book);
+      setListBook((prev) => [...prev, book.data.book]);
+    }));
+  }
+  useEffect(() => {
+    handleGetBook();
+  }, [listIdBook]);
+  useEffect(() => {
+    fetchUserAndRecommend();
+  }, [])
   const handleGetLengthCart = async () => {
     const { data } = await getOrderByAccount(account?.user?._id);
     if (data?.order?.length > 0) {
@@ -111,8 +156,6 @@ const ProductDetail = () => {
   const fetchAllCommentByBook = async () => {
     const res = await getAllCommentByBook(id);
     if (res && res?.data) {
-      console.log('res?.data?.comments', res?.data?.comments)
-      console.log(listCommentByBook.filter(comment => comment?.rating === 5).length)
       setListCommentByBook(res?.data?.comments);
     }
   };
@@ -934,7 +977,19 @@ const ProductDetail = () => {
             <div className="directory-name">
               <h1>{t('Maybeyouwilllike')}</h1>
             </div>
-            <div>
+            {isLoading ? (
+              <div className="mx-auto mt-5 w-max">
+                <LoadingPage></LoadingPage>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-5 mt-5">
+                {listBook?.length > 0 &&
+                  listBook.map((book) => (
+                    <BookCard key={book.id} data={book}></BookCard>
+                  ))}
+              </div>
+            )}
+            {/* <div>
               <div className="flex max-w-full max-h-[350px] flex-row gap-x-[30px] my-3  ">
                 {listBookCategory.length > 0 &&
                   randomCategories.slice(0, 5).map((item, index) => (
@@ -956,7 +1011,7 @@ const ProductDetail = () => {
                     </div>
                   ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       )

@@ -26,7 +26,7 @@ const getBookByCategory = (value) => {
 const getBookById = (id) => {
   return instance.get(`book/${id}`);
 };
-const getBookRecommendById = (id) => {
+const getBookRecommend = (id) => {
   return instance.get(`book/recommend/${id}`);
 };
 const postBook = (data) => {
@@ -60,7 +60,7 @@ export {
   getAllBooksByDiscount,
   searchBook,
   searchPageBook,
-  getBookRecommendById,
+  getBookRecommend,
   restoreBook,
   getAllbookDeleted
 };
