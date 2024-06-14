@@ -2,6 +2,7 @@ import { DashBoardIcon } from './icons/DashBoardIcon';
 import { AccountIcon } from './icons/AccountIcon';
 import { ProductIcon } from './icons/ProductIcon';
 import { OrderIcon } from './icons/OrderIcon';
+import { DeleteProductIcon } from './icons/DeleteProductIcon';
 import { DocIcon } from './icons/DocIcon';
 import { SettingsIcon } from './icons/SettingsIcon';
 import routes from '@/constant/routes';
@@ -25,7 +26,7 @@ export const data = [
   },
   {
     title: 'Delete Products',
-    icon: <ProductIcon />,
+    icon: <DeleteProductIcon />,
     link: routes.DELETEPRODUCT,
   },
   {
