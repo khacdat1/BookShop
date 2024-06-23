@@ -147,7 +147,9 @@ CORS(app)
 @app.route("/recommend")
 def member():
     loaded_model = joblib.load('model.pkl')
+    print('loaded_model: ', loaded_model)
     memberId = request.args.get('id')
+    print('memberId: ', memberId)
     id = int(memberId)
     movieListId,userListId = loaded_model.recommend(id)
     return movieListId
@@ -156,6 +158,7 @@ def member():
 def addRating():
     loaded_model = joblib.load('model.pkl')
     data = request.get_json()
+    print('data: ', data)
     rating = data.get('data')
     print('data: ', rating)
     if not rating:

@@ -9,5 +9,5 @@ const OrderSchema = new Schema({
   isPayment: { type: Boolean, default: false },
   PriceDiscount: { type: String },
   Count: { type: Number },
-});
+}, { timestamps: true, });
 module.exports = mongoose.model("Order", OrderSchema);

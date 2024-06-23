@@ -166,6 +166,7 @@ const ProductDetail = () => {
       return;
     }
     const res = await postComment(id, comment, value);
+    console.log(res)
     if (res && res.data) {
       fetchAllCommentByBook();
       setComment('');
@@ -173,6 +174,15 @@ const ProductDetail = () => {
       cmtRef.current.value = '';
       toast.success(res.message);
     }
+    const book = await getBookById(res.data.id_book);
+    const data1 = {
+      id_user: res.data.user.id,
+      id_book: book.data.book.product_id,
+      rating: res.data.rating
+    };
+    const data = [data1.id_user, data1.id_book, data1.rating];
+    // Send rating data to server
+    await axios.post("http://127.0.0.1:5000/add-rating", { data });
   };
   const handleDeleteComment = (idComment) => {
     const auth = sessionStorage.getItem('auth');
