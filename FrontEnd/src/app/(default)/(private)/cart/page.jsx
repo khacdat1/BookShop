@@ -110,6 +110,15 @@ export default function Cart() {
     }
   }
   const handleCheckout = () => {
+    sessionStorage.setItem('check', false);
+    const auth = sessionStorage.getItem('auth');
+    const parseAuth = JSON.parse(auth);
+    if (!parseAuth?.user?.isVerified) {
+      toast.warning(
+        'Tài khoản của bạn chưa được xác thực nên không thể mua sách. Vui lòng xác thực tài khoản!!!'
+      );
+      return;
+    }
     if (payment.totalMoney > 0) {
       const result =
         payment.book.length > 0 &&
