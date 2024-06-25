@@ -151,8 +151,8 @@ def member():
     memberId = request.args.get('id')
     print('memberId: ', memberId)
     id = int(memberId)
-    movieListId,userListId = loaded_model.recommend(id)
-    return movieListId
+    bookListId,userListId = loaded_model.recommend(id)
+    return bookListId
 
 @app.route("/add-rating", methods=["POST"])
 def addRating():
