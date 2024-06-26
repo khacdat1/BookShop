@@ -55,6 +55,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [orderItem, setOrderItem] = useState([]);
   const [listBookCategory, setListBookCategory] = useState([]);
+  const [ratingCounts, setRatingCounts] = useState([0, 0, 0, 0, 0])
   const maxItem = 5;
   const account =
     typeof window !== 'undefined'
@@ -307,6 +308,17 @@ const ProductDetail = () => {
       listBookCategory.length
     )
   );
+  useEffect(() => {
+    if (listCommentByBook) {
+      const counts = [0, 0, 0, 0, 0]
+      listCommentByBook.forEach((comment) => {
+        if (comment.rating >= 1 && comment.rating <= 5) {
+          counts[comment.rating - 1]++
+        }
+      })
+      setRatingCounts(counts)
+    }
+  }, [listCommentByBook])
   return (
     <section className="content">
       {isLoading ? (
@@ -622,7 +634,14 @@ const ProductDetail = () => {
                   pagination={{ clickable: true }}
                   className="pb-[30px]"
                 >
-                  {book?.descImage?.length > 0 &&
+                  <Image
+                    src="https://salt.tikicdn.com/cache/750x750/ts/product/c8/84/aa/bec728a86ef1cf81f90708df8c694f5f.png.webp"
+                    width={400}
+                    alt="desc image"
+                    height={600}
+                    className="object-cover w-full h-[300px] rounded-md"
+                  />
+                  {/* {book?.descImage?.length > 0 &&
                     book?.descImage?.map((descImg, index) => (
                       <SwiperSlide key={index}>
                         <Image
@@ -633,21 +652,24 @@ const ProductDetail = () => {
                           className="object-cover w-full h-[300px] rounded-md"
                         />
                       </SwiperSlide>
-                    ))}
+                    ))} */}
                 </Swiper>
               </div>
             </div>
             <div className="description-detail mt-[20px]">
               <h2>{t('Information')}</h2>
               <div className="story-summary">
-                <p className="story-summary-value">{book?.infomation}</p>
+                <p className="story-summary-value">
+                  Hãy làm quen với Zezé, cậu bé tinh nghịch siêu hạng đồng thời cũng đáng yêu bậc nhất, với ước mơ lớn lên trở thành nhà thơ cổ thắt nơ bướm. Chẳng phải ai cũng công nhận khoản “đáng yêu” kia đâu nhé. Bởi vì, ở cái xóm ngoại ô nghèo ấy, nỗi khắc khổ bủa vây đã che mờ mắt người ta trước trái tim thiện lương cùng trí tưởng tượng tuyệt vời của cậu bé con năm tuổi.
+                  Có hề gì đâu bao nhiêu là hắt hủi, đánh mắng, vì Zezé đã có một người bạn đặc biệt để trút nỗi lòng: cây cam ngọt nơi vườn sau. Và cả một người bạn nữa, bằng xương bằng thịt, một ngày kia xuất hiện, cho cậu bé nhạy cảm khôn sớm biết thế nào là trìu mến, thế nào là nỗi đau, và mãi mãi thay đổi cuộc đời cậu.
+                  Mở đầu bằng những thanh âm trong sáng và kết thúc lắng lại trong những nốt trầm hoài niệm, Cây cam ngọt của tôi khiến ta nhận ra vẻ đẹp thực sự của cuộc sống đến từ những điều giản dị như bông hoa trắng của cái cây sau nhà, và rằng cuộc đời thật khốn khổ nếu thiếu đi lòng yêu thương và niềm trắc ẩn. Cuốn sách kinh điển này bởi thế không ngừng khiến trái tim người đọc khắp thế giới thổn thức, kể từ khi ra mắt lần đầu năm 1968 tại Brazil.{book?.infomation}</p>
 
                 <div className="flex items-center justify-center">
                   <Image
                     src={book?.mainImage[0]?.url}
-                    width={500}
+                    width={400}
                     alt="image"
-                    height={500}
+                    height={800}
                     className="story-summary-img"
                   ></Image>
                 </div>
@@ -777,81 +799,37 @@ const ProductDetail = () => {
                   <div className="ratingHeader-reviews">{book?.comment?.length} {t('Reviews')}</div>
                 </div>
                 <div className="rating-main">
-                  <div className="rating-five rating-items">
-                    <div className="stars-area">
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                    </div>
-                    <div className="wrapper-proportional-area">
-                      <div className="proportional-area"></div>
-                    </div>
-                    <div className="quantity-area">
-                      <span>{listCommentByBook.filter(comment => comment?.rating === 5).length}</span>
-                    </div>
+                  <div className='flex flex-col gap-4 mt-8 '>
+                    {[5, 4, 3, 2, 1].map((rating, index) => {
+                      const count = ratingCounts[rating - 1]
+                      const totalComments = book?.comment?.length
+                      const percentage = totalComments > 0 ? (count / totalComments) * 100 : 0
+
+                      return (
+                        <div key={index} className='flex gap-2 w-full item-center justify-center h-[30px] text-base'>
+                          <span className='text-end p-1'>{rating}</span>
+                          <div className='w-full flex items-center justify-center'>
+                            <div className='w-full box-border leading-snug'>
+                              <div className='w-full'>
+                                <div className='h-[5px] bg-[#dfdfdf] overflow-hidden rounded-[100px] w-full'>
+                                  <div
+                                    className='ant-progress-bg flex items-center justify-center'
+                                    style={{
+                                      width: `${percentage}%`,
+                                      height: '5px',
+                                      background: 'rgb(0, 0, 0)'
+                                    }}
+                                  ></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <span className='text-center h-[30px] p-1'>({count})</span>
+                        </div>
+                      )
+                    })}
                   </div>
-                  <div className="rating-four rating-items">
-                    <div className="stars-area">
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                    </div>
-                    <div className="wrapper-proportional-area">
-                      <div className="proportional-area"></div>
-                    </div>
-                    <div className="quantity-area">
-                      <span>{listCommentByBook.filter(comment => comment?.rating === 4).length}</span>
-                    </div>
-                  </div>
-                  <div className="rating-three rating-items">
-                    <div className="stars-area">
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                    </div>
-                    <div className="wrapper-proportional-area">
-                      <div className="proportional-area"></div>
-                    </div>
-                    <div className="quantity-area">
-                      <span>{listCommentByBook.filter(comment => comment?.rating === 3).length}</span>
-                    </div>
-                  </div>
-                  <div className="rating-two rating-items">
-                    <div className="stars-area">
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                    </div>
-                    <div className="wrapper-proportional-area">
-                      <div className="proportional-area"></div>
-                    </div>
-                    <div className="quantity-area">
-                      <span>{listCommentByBook.filter(comment => comment?.rating === 2).length}</span>
-                    </div>
-                  </div>
-                  <div className="rating-one rating-items">
-                    <div className="stars-area">
-                      <i className="fa fa-solid fa-star fa-2xl icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                      <i className="fa fa-star-o icon-star"></i>
-                    </div>
-                    <div className="wrapper-proportional-area">
-                      <div className="proportional-area"></div>
-                    </div>
-                    <div className="quantity-area">
-                      <span>{listCommentByBook.filter(comment => comment?.rating === 1).length}</span>
-                    </div>
-                  </div>
+
                 </div>
               </div>
               <div className="review-form-wrapper">

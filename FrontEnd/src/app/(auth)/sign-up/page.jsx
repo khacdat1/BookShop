@@ -52,6 +52,7 @@ export default function SignUpPage() {
     resolver: yupResolver(schema),
   });
   const handleSignUp = async (values) => {
+    console.log(values);
     const res = await postSignUp(
       values.username,
       values.email,
@@ -77,7 +78,7 @@ export default function SignUpPage() {
     //       </div>
     //       <Input
     //         type="text"
-    //         name="username"  
+    //         name="username"
     //         control={control}
     //         id="username"
     //         placeholder="Please enter your username"
@@ -157,8 +158,26 @@ export default function SignUpPage() {
             </p>
           </div>
         </Field>
+        <Field>
+          <div className="mb-2">
+            <Label htmlFor="username">Username</Label>
+          </div>
+          <Input
+            type="text"
+            name="username"
+            control={control}
+            id="username"
+            placeholder="Please enter your username"
+          />
+          <p className="font-semibold text-xs text-red-700 h-[20px] py-1">
+            {errors.username && errors.username.message}
+          </p>
+        </Field>
         <Field className="">
-          <InputTogglePassword
+          <div className="mb-2">
+            <Label htmlFor="password">Password</Label>
+          </div>
+          <Input
             name="password"
             control={control}
             id="password"
@@ -179,9 +198,9 @@ export default function SignUpPage() {
             className="mb-4 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 mt-2"
             placeholder="Confirm your password"
           />
-          <p className="text-xs font-semibold text-red-600 mt-1">
+          {/* <p className="text-xs font-semibold text-red-600 mt-1">
             {errors.confirmPassword && errors.confirmPassword.message}
-          </p>
+          </p> */}
         </Field>
         <div className="mt-6">
           <ButtonForm

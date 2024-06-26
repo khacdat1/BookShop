@@ -8,7 +8,7 @@ const InputToggleConfirmPassword = ({ name, control, errors }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   return (
     <Field>
-      <div className="mb-2">
+      <div className="mb-4">
         <Label htmlFor={name}>Confirm password</Label>
       </div>
       <div className="relative w-full">

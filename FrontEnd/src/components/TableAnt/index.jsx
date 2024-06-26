@@ -63,7 +63,6 @@ const TableAnt = ({ dataAccount }) => {
       dataIndex: 'price',
       width: 7,
       render: (_, record) => {
-        console.log('rc', record);
         let state;
         let css;
         if (record.discount === 0) {
