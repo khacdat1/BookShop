@@ -25,9 +25,9 @@ const BannerItem = ({ book }) => {
         <span className="inline-block text-lg font-medium">
           {t('Category')}: {book?.category}
         </span>
-        <p className="mb-4 text-base font-light leading-6">
+        {/* <p className="mb-4 text-base font-light leading-6">
           {t('Description')}: {book?.desc}
-        </p>
+        </p> */}
         <Link
           href={`/product/${book?._id}`}
           className="bg-[#6d4eec] w-max p-[10px] font-semibold text-base rounded-md hover:bg-opacity-60 transition-all"

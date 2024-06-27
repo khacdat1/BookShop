@@ -173,11 +173,8 @@ export default function SignUpPage() {
             {errors.username && errors.username.message}
           </p>
         </Field>
-        <Field className="">
-          <div className="mb-2">
-            <Label htmlFor="password">Password</Label>
-          </div>
-          <Input
+        <Field>
+          <InputTogglePassword
             name="password"
             control={control}
             id="password"
