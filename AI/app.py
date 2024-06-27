@@ -14,6 +14,8 @@ import os
 import shutil
 import joblib
 from pymongo import MongoClient
+from bson import ObjectId
+
 class CF(object):
     """docstring for CF"""
     def __init__(self, Y_data, k, dist_func = cosine_similarity, uuCF = 1):
@@ -184,8 +186,17 @@ def add_rating():
         
         # Lấy tất cả các đánh giá từ MongoDB
         all_ratings = list(collection.find({}, {"_id": 0, "id_user": 1, "id_book": 1, "rating": 1}))
-        Y_data = np.array([[r["id_user"], r["id_book"], r["rating"]] for r in all_ratings])
-        
+        filtered_ratings = []
+        for rating in all_ratings:
+            if not (isinstance(rating['id_user'], ObjectId) or isinstance(rating['id_book'], ObjectId)):
+                  # Bỏ qua các trường id_user là ObjectId
+                filtered_ratings.append({
+                    "id_user": rating["id_user"],
+                    "id_book": rating["id_book"],
+                    "rating": rating["rating"]
+                })
+        Y_data = np.array([[r["id_user"], r["id_book"], r["rating"]] for r in filtered_ratings])
+        print('Y_data: ',Y_data)
         # Cập nhật mô hình với các đánh giá mới
         loaded_model.Y_data = Y_data
         loaded_model.fit()
