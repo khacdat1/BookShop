@@ -8,8 +8,8 @@ NProgress.configure({
 
 const instance = axios.create({
   // đường dẫn của api
-  baseURL: 'https://datn-be-bookshop.onrender.com/api/',
-  // baseURL: 'http://localhost:3030/api/',
+  // baseURL: 'https://datn-be-bookshop.onrender.com/api/',
+  baseURL: 'http://localhost:3030/api/',
 });
 
 // Add a request interceptor

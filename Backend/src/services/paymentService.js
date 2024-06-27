@@ -116,6 +116,7 @@ const paymenOnline = async (data) => {
                                     name: nameManage,
                                     phone: phoneManage,
                                     address: addressManage,
+                                    status: 2,
                                     time: vnp_Params["vnp_PayDate"],
                                     payment_method: "ONL"
                                 })
