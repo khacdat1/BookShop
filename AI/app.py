@@ -13,7 +13,7 @@ import math
 import os
 import shutil
 import joblib
-
+from pymongo import MongoClient
 class CF(object):
     """docstring for CF"""
     def __init__(self, Y_data, k, dist_func = cosine_similarity, uuCF = 1):
@@ -66,9 +66,9 @@ class CF(object):
         Normalize data and calculate similarity matrix again (after
         some few ratings added)
         """
-        print('Y_data: ',self.Y_data)
         self.normalize_Y()
         self.similarity()
+        print('Y_data: ',self.Y_data)
 
 
     def fit(self):
@@ -144,6 +144,13 @@ app = Flask(__name__)
 
 CORS(app)
 
+MONGO_URI = "mongodb+srv://khacdat1:Khacnguyen%401@datn.r6t7owf.mongodb.net/DATN?retryWrites=true&w=majority&appName=Cluster0"
+client = MongoClient(MONGO_URI)  # Sử dụng chuỗi kết nối MongoDB của bạn
+
+# Đảm bảo thay 'ten_database_cua_ban' bằng tên cơ sở dữ liệu bạn đang sử dụng
+db = client['DATN']  # Tên database, thay bằng tên cơ sở dữ liệu của bạn
+collection = db['comments'] 
+
 @app.route("/recommend")
 def member():
     loaded_model = joblib.load('model.pkl')
@@ -155,22 +162,41 @@ def member():
     return bookListId
 
 @app.route("/add-rating", methods=["POST"])
-def addRating():
-    loaded_model = joblib.load('model.pkl')
-    data = request.get_json()
-    print('data: ', data)
-    rating = data.get('data')
-    print('data: ', rating)
-    if not rating:
-        return jsonify({"error": "json not provided"}), 400
-
-    newData = np.array([rating])
-    loaded_model.add(newData)
-    pickle.dump(loaded_model,open('model.pkl','wb'))
-    reponse = {
-        "data": data
-    }
-    return jsonify(reponse) 
-
+def add_rating():
+    try:
+        # Tải mô hình hiện tại
+        loaded_model = joblib.load('model.pkl')
+        
+        # Lấy đánh giá mới từ yêu cầu
+        data = request.get_json()
+        rating = data.get('data')
+        
+        if not rating or not isinstance(rating, list) or len(rating) != 3:
+            return jsonify({"error": "Dữ liệu không hợp lệ"}), 400
+        
+        # Thêm đánh giá mới vào MongoDB
+        new_rating = {
+            "id_user": rating[0],
+            "id_book": rating[1],
+            "rating": rating[2]
+        }
+        collection.insert_one(new_rating)
+        
+        # Lấy tất cả các đánh giá từ MongoDB
+        all_ratings = list(collection.find({}, {"_id": 0, "id_user": 1, "id_book": 1, "rating": 1}))
+        Y_data = np.array([[r["id_user"], r["id_book"], r["rating"]] for r in all_ratings])
+        
+        # Cập nhật mô hình với các đánh giá mới
+        loaded_model.Y_data = Y_data
+        loaded_model.fit()
+        
+        # Lưu mô hình đã cập nhật
+        joblib.dump(loaded_model, 'model.pkl')
+        
+        response = {"message": "Đã thêm đánh giá thành công", "data": rating}
+        return jsonify(response), 200
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 if __name__ == "__main__":
     app.run(debug=True)

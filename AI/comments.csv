@@ -1,4 +1,4 @@
-user_id,book_id,rating
+id_user,id_book,rating
 1,1180,4
 1,4893,3
 1,6285,4
